@@ -117,4 +117,8 @@ contract SaleAnimalToken {
         return onSaleAnimalTokenArray.length;
         // 이 길이를 통해서 프론트에서 판매중인 리스트를 for문 돌려서 가져옴
     }
+
+    function getAnimalTokenPrice(uint256 _animalTokenId) view public returns(uint256){
+        return animalTokenPrices[_animalTokenId];
+    }
 }

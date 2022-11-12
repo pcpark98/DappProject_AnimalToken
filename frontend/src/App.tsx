@@ -2,6 +2,9 @@ import React, { FC, useEffect, useState } from "react";
 import { Button } from "@chakra-ui/react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Main from "./routes/main";
+import Layout from "./components/Layout";
+import MyAnimal from "./routes/my-animal";
+import SaleAnimal from "./routes/sale-animal";
 
 const App: FC = () => {
   const [account, setAccount] = useState<string>("");
@@ -19,26 +22,28 @@ const App: FC = () => {
         // 지금 접속되어 있는 메타 마스크 계정의 주소가 나옴.
 
         setAccount(accounts[0]);
-      } else {
-        // 이더리움이 없으면
-        alert("Install Metamask!");
       }
     } catch (error) {
       console.log(error);
     }
   };
+
   useEffect(() => {
     getAccount();
   }, []);
-  useEffect(() => {
-    console.log(account);
-  }, [account]);
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Main />} />
-      </Routes>
+      <Layout>
+        <Routes>
+          <Route path="/" element={<Main account={account} />} />
+          <Route path="/my-animal" element={<MyAnimal account={account} />} />
+          <Route
+            path="/sale-animal"
+            element={<SaleAnimal account={account} />}
+          />
+        </Routes>
+      </Layout>
     </BrowserRouter>
   );
 };
